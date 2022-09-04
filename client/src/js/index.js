@@ -10,6 +10,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Logo from '../images/logo.png';
 import Bear from '../images/bear.png';
 import Dog from '../images/dog.png'
+
+
 window.addEventListener('load', function () {
     initdb();
     fetchCards();
@@ -84,5 +86,22 @@ window.editCard = (e) => {
 if ('serviceWorker' in navigator) {
     // Use the window load event to keep the page load performant
     window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js');
-  })};
+        navigator.serviceWorker.register('./service-worker.js');
+    })
+};
+//   installbtn 
+const installBtn = document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    installBtn.style.visibility = 'visible';
+
+    installBtn.addEventListener('click', () => {
+        event.prompt();
+        installBtn.setAttribute('disabled', true);
+        installBtn.textContent = 'Installed!';
+
+    });
+});
+window.addEventListener('appinstalled', (event) => {
+    console.log('👍', 'appinstalled', event);
+})
